@@ -1,5 +1,6 @@
 FIRACODE_VERSION=2
 FONTAWESOME_VERSION=5.12.1
+NERDFONT_VERSION=2.0.0
 
 function askGeneralDialog() {
     # dialog menu
