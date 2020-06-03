@@ -18,6 +18,9 @@ function askGeneralDialog() {
         13 "emacs" off
         14 "dustn" off
         15 "kitty" off
+        16 "firacode" off
+        17 "furacode" off
+        18 "font awesome" off
     )
     genealChoices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
     clear
@@ -82,7 +85,21 @@ function installGeneralChoice() {
             echo PRE INSTALLING KITTY
             installKitty
             ;;
+        16)
+            echo PRE INSTALLING FIRACODE
+            installFiraCode
+            ;;
+        17)
+            echo PRE INSTALLING PATCHED FIRACODE
+            installFuraCode
+            ;;
+        18)
+            echo PRE INSTALLING FONTAWESOME
+            installFontAwesome
+            ;;
+
         esac
+
     done
 
 }
@@ -132,6 +149,47 @@ function installLsd() {
     fi
 }
 
+function installFiraCode() {
+    if ! [ "$(fc-list | grep -c 'FiraCode')" -ge 1 ]; then
+        echo INSTALLING FIRACODE
+        wget https://github.com/tonsky/FiraCode/releases/download/$FIRACODE_VERSION/FiraCode_$FIRACODE_VERSION.zip -O $TEMP_DIR/FiraCode.zip
+
+        unzip $TEMP_DIR/FiraCode.zip -d ~/.fonts
+
+        fc-cache
+
+    else
+        echo FIRACODE ALREADY INSTALLED
+    fi
+}
+
+function installFuraCode() {
+    if ! [ "$(fc-list | grep -c 'Fura Code')" -ge 1 ]; then
+        echo INSTALLING PATCHED FIRACODE
+        wget https://github.com/ryanoasis/nerd-fonts/releases/download/v$NERDFONT_VERSION/FiraCode.zip -O $TEMP_DIR/FuraCode.zip
+
+        unzip $TEMP_DIR/FuraCode.zip -d ~/.fonts
+
+        fc-cache
+
+    else
+        echo PATCHED FIRACODE ALREADY INSTALLED
+    fi
+}
+
+function installFontAwesome() {
+    if ! [ "$(fc-list | grep -c 'Font Awesome 5 Free')" -ge 1 ]; then
+        echo INSTALLING FONTAWESOME
+        wget https://github.com/FortAwesome/Font-Awesome/releases/download/$FONTAWESOME_VERSION/fontawesome-free-$FONTAWESOME_VERSION-desktop.zip -O $TEMP_DIR/FontAwesome.zip
+
+        unzip $TEMP_DIR/FontAwesome.zip -d ~/.fonts
+
+        fc-cache
+    else
+        echo FONTAWESOME ALREADY INSTALLED
+    fi
+}
+
 function installOhMyZsh() {
     if [ ! -d ~/.oh-my-zsh ]; then
         echo INSTALLING OH-MY-ZSH
@@ -144,10 +202,6 @@ function installOhMyZsh() {
         git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
         git clone https://github.com/lukechilds/zsh-better-npm-completion ~/.oh-my-zsh/custom/plugins/zsh-better-npm-completion
         git clone https://github.com/buonomo/yarn-completion ~/.oh-my-zsh/custom/plugins/yarn-completion
-
-        # TODO: Change this with mine or remove if global dotfile approach is used
-        wget https://raw.githubusercontent.com/lucax88x/configs/master/.p10k.zsh -O ~/.p10k.zsh
-        wget https://raw.githubusercontent.com/lucax88x/configs/master/.zshrc -O ~/.zshrc
     else
         echo OH-MY-ZSH ALREADY INSTALLED
     fi
