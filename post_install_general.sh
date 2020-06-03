@@ -1,3 +1,6 @@
+FIRACODE_VERSION=2
+FONTAWESOME_VERSION=5.12.1
+
 function askGeneralDialog() {
     # dialog menu
     cmd=(dialog --separate-output --checklist "Please select gereal library to be installed:" 22 76 16)
