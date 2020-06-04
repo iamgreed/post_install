@@ -7,7 +7,7 @@ function askGeneralDialog() {
     cmd=(dialog --separate-output --checklist "Please select gereal library to be installed:" 22 76 16)
 
     options=(
-        1 "yay" on
+        1 "yay" off
         2 "snap" off
         3 "git" off
         4 "lsd" off
@@ -25,6 +25,7 @@ function askGeneralDialog() {
         16 "firacode" off
         17 "furacode" off
         18 "font awesome" off
+        19 "rust" off
     )
     genealChoices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
     clear
@@ -100,6 +101,10 @@ function installGeneralChoice() {
         18)
             echo PRE INSTALLING FONTAWESOME
             installFontAwesome
+            ;;
+        19)
+            echo PRE INSTALLING RUST
+            installRust
             ;;
 
         esac
@@ -300,5 +305,14 @@ function installKitty() {
         yay -Sy --noconfirm kitty
     else
         echo KITTY ALREADY INSTALLED
+    fi
+}
+
+function installRust(){
+    if ! [ -x "$(command -v rust)" ]; then
+        echo INSTALLING RUST
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    else
+        echo RUST ALREADY INSTALLED
     fi
 }
