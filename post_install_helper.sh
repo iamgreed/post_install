@@ -37,3 +37,27 @@ function askDialog() {
     esac
   done
 }
+
+function installYay() {
+  if ! [ -x "$(command -v yay)" ]; then
+    echo INSTALLING YAY
+    git clone https://aur.archlinux.org/yay.git
+    cd yay && makepkg -si --noconfirm && cd ..
+    rm -rf yay
+  else
+    echo YAY ALREADY INSTALLED
+  fi
+}
+
+function installSnap() {
+  if ! [ -x "$(command -v snap)" ]; then
+    echo INSTALLING SNAP
+    yay -Sy --noconfirm snapd
+    sudo systemctl enable --now snapd.socket
+    echo Either log out and back in again, or restart your system, to ensure snap’s paths are updated correctly.
+    echo Once done, restart the script!
+    exit 1
+  else
+    echo SNAP ALREADY INSTALLED
+  fi
+}

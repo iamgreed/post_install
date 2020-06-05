@@ -4,28 +4,25 @@ NERDFONT_VERSION=2.0.0
 
 function askGeneralDialog() {
     # dialog menu
-    cmd=(dialog --separate-output --checklist "Please select gereal library to be installed:" 22 76 16)
+    cmd=(dialog --separate-output --checklist "Please select general library to be installed:" 22 76 16)
 
     options=(
-        1 "yay" off
-        2 "snap" off
-        3 "git" off
-        4 "lsd" off
-        5 "oh my zsh" off
-        6 "bd" off
-        7 "dot net sdk" off
-        8 "node" off
-        9 "yarn" off
-        10 "docker" off
-        11 "docker compose" off
-        # 12 "i3" off
-        13 "emacs" off
-        14 "dustn" off
-        15 "kitty" off
-        16 "firacode" off
-        17 "furacode" off
-        18 "font awesome" off
-        19 "rust" off
+        1 "Git" off
+        2 "Lsd" off
+        3 "Oh my zsh" off
+        4 "bd" off
+        5 "dot net sdk" off
+        6 "Node" off
+        7 "Yarn" off
+        8 "Docker" off
+        9 "Docker compose" off
+        10 "Emacs" off
+        11 "Dustn" off
+        12 "Kitty" off
+        13 "Firacode 2" off
+        14 "Furacode 2.0.0" off
+        15 "Font awesome 5.12.1" off
+        16 "Rust" off
     )
     genealChoices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
     clear
@@ -35,74 +32,66 @@ function installGeneralChoice() {
     for genealChoice in $genealChoices; do
         case $genealChoice in
         1)
-            echo PRE INSTALLING YAY
-            installYay
-            ;;
-        2)
-            echo PRE INSTALLING SNAP
-            installSnap
-            ;;
-        3)
             echo PRE INSTALLING GIT
             installGit
             ;;
-        4)
+        2)
             echo PRE INSTALLING LSD
             installLsd
             ;;
-        5)
+        3)
             echo PRE INSTALLING OH MY ZSH
             installOhMyZsh
             ;;
-        6)
+        4)
             echo PRE INSTALLING Bd
             installBd
             ;;
-        7)
+        5)
             echo PRE INSTALLING DOT NET SDK
             installDotnetSdk
             ;;
-        8)
+        6)
             echo PRE INSTALLING NODE
             installNode
             ;;
-        9)
+        7)
             echo PRE INSTALLING YARN
             installYarn
             ;;
-        10)
+        8)
             echo PRE INSTALLING DOCKER
             installDocker
             ;;
-        11)
+        9)
             echo PRE INSTALLING DOCKER COMPOSE
             installDockerCompose
             ;;
-        13)
+        10)
             echo PRE INSTALLING EMACS
             installEmacs
             ;;
-        14)
+        11)
             echo PRE INSTALLING DUNST
             installDunst
             ;;
-        15)
+        12)
             echo PRE INSTALLING KITTY
             installKitty
             ;;
-        16)
+        13)
             echo PRE INSTALLING FIRACODE
             installFiraCode
             ;;
-        17)
+        14)
             echo PRE INSTALLING PATCHED FIRACODE
             installFuraCode
             ;;
-        18)
+        15)
             echo PRE INSTALLING FONTAWESOME
             installFontAwesome
             ;;
-        19)
+        16)
             echo PRE INSTALLING RUST
             installRust
             ;;
@@ -110,32 +99,6 @@ function installGeneralChoice() {
         esac
 
     done
-
-}
-
-function installYay() {
-    if ! [ -x "$(command -v yay)" ]; then
-        echo INSTALLING YAY
-        git clone https://aur.archlinux.org/yay.git
-        cd yay && makepkg -si --noconfirm && cd ..
-        rm -rf yay
-    else
-        echo YAY ALREADY INSTALLED
-    fi
-
-}
-
-function installSnap() {
-    if ! [ -x "$(command -v snap)" ]; then
-        echo INSTALLING SNAP
-        yay -Sy --noconfirm snapd
-        sudo systemctl enable --now snapd.socket
-        echo Either log out and back in again, or restart your system, to ensure snap’s paths are updated correctly.
-        echo Once done, restart the script!
-        exit 1
-    else
-        echo SNAP ALREADY INSTALLED
-    fi
 
 }
 
@@ -248,7 +211,7 @@ function installNode() {
 function installYarn() {
     if ! [ -x "$(command -v yarn)" ]; then
         echo INSTALLING YARN
-        ay -Sy --noconfirm yarn
+        yay -Sy --noconfirm yarn
     else
         echo YARN ALREADY INSTALLED
     fi

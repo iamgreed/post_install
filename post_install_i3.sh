@@ -8,8 +8,11 @@ function askI3Dialog() {
         3 "scrot" off
         4 "picom" off
         5 "conky" off
-        6 "kubectl" off
-        7 "slack" off
+        6 "polybar" off
+        7 "rofi" off
+        8 "rofi greenclip" off
+        9 "fhe" off
+        10 "i3 battery popup git" off
     )
     i3Choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
     clear

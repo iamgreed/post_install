@@ -7,6 +7,9 @@
 echo "Updating and Upgrading"
 sudo pacman -Syyu
 
+installYay
+installSnap
+
 # install dialog if needed
 installDialog
 
